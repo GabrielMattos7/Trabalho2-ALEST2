@@ -1,5 +1,5 @@
 class Graph:
-    def _init_(self, *args):
+    def __init__(self, *args):
         self.graph = {}
         self.vertices = set()
         if len(args) == 1:
@@ -7,7 +7,7 @@ class Graph:
 
     def addEdge(self, v, w):
         self.addToList(v, w)
-        self.addToList(w, v)
+        #self.addToList(w, v) grafo direcionado nao cria o inverso
 
     def getAdj(self, v):
         return self.graph[v] if v in self.graph else []
@@ -18,18 +18,18 @@ class Graph:
     def toDot(self):
         edges = set()
         NEWLINE = '\n'
-        sb = "graph {" + NEWLINE
+        sb = "digraph {" + NEWLINE
         sb += "rankdir = LR;" + NEWLINE
         sb += "node [shape = circle];" + NEWLINE
         for v in sorted(self.getVerts()):
             for w in self.getAdj(v):
-                edge = w + v if v > w else v + w
+                edge = f"{v}->{w}"
                 if edge not in edges:
-                    sb += v + " -- " + w + NEWLINE
+                    sb += f"{v} -> {w}" + NEWLINE
                     edges.add(edge)
         sb += "}" + NEWLINE
         return sb
-
+    
     def addToList(self, v, w):
         list = self.graph[v] if v in self.graph else []
         list.append(w)

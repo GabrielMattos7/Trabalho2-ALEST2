@@ -1,4 +1,5 @@
 from graph import Graph
+from topological import Topological
 class Box:
     def __init__(self, x,y,z):
         dimentions_aux = [int(x), int(y), int(z)]
@@ -31,10 +32,20 @@ if __name__ == "__main__":
             box_arr.append(box)
             # box.print_Box()
                             
-        for i, box1 in enumerate(box_arr):
-            for j, box2 in enumerate(box_arr):
-                # print(str(box1))
-                # print(str(box))
-                if(check_size(box1,box2)):
-                    g.addEdge(i,j) # Vini da uma olhada nisso depois 
-                # print(str(box2))
+    for i, box1 in enumerate(box_arr):
+        for j, box2 in enumerate(box_arr):
+            if i!= j and check_size(box1,box2): # verificar se nao sao iguais
+                g.addEdge(str(i),str(j)) # so botei str e mandei printar 
+    
+    grafo_topo = Topological(g)
+    ordem = grafo_topo.getTopological()
+
+    maior_caminho = len(box_arr) * [0] # zero em cada posicao do array
+
+
+    nome_caixa = {str(i): f'Box{i}' for i in range(len(box_arr))}    
+    for vertex in ordem:
+        print(nome_caixa[vertex], end=" ")
+
+    print("\n")
+    print(g.toDot())
