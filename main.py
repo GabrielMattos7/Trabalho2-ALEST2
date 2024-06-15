@@ -25,7 +25,7 @@ def check_size(Box1, Box2) -> bool:
 if __name__ == "__main__":
     box_arr = []
     g = Graph()
-    with open("casosT10/exemplo.txt") as arq:
+    with open("casosT10/teste200.txt") as arq:
         for line in arq:
             x,y,z = line.split()
             box = Box(x,y,z)
@@ -40,12 +40,14 @@ if __name__ == "__main__":
     grafo_topo = Topological(g)
     ordem = grafo_topo.getTopological()
 
-    maior_caminho = len(box_arr) * [0] # zero em cada posicao do array
 
+    max_dist = grafo_topo.longestPath(g)
+    print(max_dist)
 
-    nome_caixa = {str(i): f'Box{i}' for i in range(len(box_arr))}    
-    for vertex in ordem:
-        print(nome_caixa[vertex], end=" ")
+    # nome_caixa = {str(i): f'Box{i}' for i in range(len(box_arr))}    
+    # for vertex in ordem:
+        # pass
+        # print(nome_caixa[vertex], end=" ")
 
     print("\n")
-    print(g.toDot())
+    # print(g.toDot())
