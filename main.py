@@ -16,9 +16,9 @@ def check_size(Box1, Box2) -> bool:
     """
     Compare if the dimentions are less or equal to the second box
     """
-    if (Box1.get_dimentions()[0] <= Box2.get_dimentions()[0] and 
-        Box1.get_dimentions()[1] <= Box2.get_dimentions()[1] and  
-        Box1.get_dimentions()[2] <= Box2.get_dimentions()[2]):
+    if (Box1.get_dimentions()[0] < Box2.get_dimentions()[0] and 
+        Box1.get_dimentions()[1] < Box2.get_dimentions()[1] and  
+        Box1.get_dimentions()[2] < Box2.get_dimentions()[2]):
         return True 
     else: return False
 
@@ -26,7 +26,7 @@ def check_size(Box1, Box2) -> bool:
 if __name__ == "__main__":
     box_arr = []
     g = Graph()
-    with open("casosT10/teste50.txt") as arq:
+    with open("casosT10/chuck_norris.txt") as arq:
         for line in arq:
             # print(line)
             x,y,z = line.split()
