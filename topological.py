@@ -50,8 +50,6 @@ class Topological:
 
 
         path = []
-        print(self.edgeTo)
-        print(self.distTo)
         while current is not None:
             path.insert(0, current) #adiciona o ultimo ao array
             current = self.edgeTo.get(current) # pega o seu edge
