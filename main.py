@@ -9,7 +9,8 @@ class Box:
         return self.dimentions
     
     def __str__(self):
-        return f"x: {self.dimentions[0]};  y: {self.dimentions[1]};  z: {self.dimentions[2]}\n"
+        formatted_str = f"{self.dimentions[0]}, {self.dimentions[1]}, {self.dimentions[2]}"
+        return formatted_str
 
 def check_size(Box1, Box2) -> bool:
     """
@@ -25,24 +26,28 @@ def check_size(Box1, Box2) -> bool:
 if __name__ == "__main__":
     box_arr = []
     g = Graph()
-    with open("casosT10/teste200.txt") as arq:
+    with open("casosT10/teste50.txt") as arq:
         for line in arq:
+            # print(line)
             x,y,z = line.split()
             box = Box(x,y,z)
             box_arr.append(box)
             # box.print_Box()
-                            
+    # print(len(box_arr))                       
     for i, box1 in enumerate(box_arr):
         for j, box2 in enumerate(box_arr):
+            # if i==j:
+                # print(box1.__str__())
+                # print(box2.__str__())
             if i!= j and check_size(box1,box2): # verificar se nao sao iguais
-                g.addEdge(str(i),str(j)) # so botei str e mandei printar 
+                g.addEdge(box1.__str__(),box2.__str__())
     
     grafo_topo = Topological(g)
-    ordem = grafo_topo.getTopological()
+    # ordem = grafo_topo.getTopological()
 
 
-    max_dist = grafo_topo.longestPath(g)
-    print(max_dist)
+    # max_dist = grafo_topo.longestPath(g)
+    # print(max_dist)
 
     # nome_caixa = {str(i): f'Box{i}' for i in range(len(box_arr))}    
     # for vertex in ordem:
@@ -50,4 +55,8 @@ if __name__ == "__main__":
         # print(nome_caixa[vertex], end=" ")
 
     print("\n")
-    # print(g.toDot())
+    with open("todot.txt", "w") as file:
+        file.write((g.toDot()))
+    dist, path = grafo_topo.longestPath()
+    print(len(path))
+    print(path)
