@@ -37,42 +37,7 @@ class Graph:
         self.vertices.add(w)
 
     def __readFromFile(self, filename):
-        try:
-            with open(filename, 'r') as arq:
-                for line in arq:
-                    verts = line.strip().split()
-                    if len(verts) == 2:
-                        self.addEdge(verts[0], verts[1])
-
-                    else:
-                        print(f"Warning: Line in file '{filename}' does not contain exactly 2 vertices: {line.strip()}")
-        except Exception as e:
-            print(f"Error reading file '{filename}': {e}")
-
-    def longestPath(self, g):
-            for v in self.verts:
-                if self.distTo[v] == -float('inf'):
-                    self.distTo[v] = 0
-
-                for w in self.g.getAdj(v):
-                    if self.distTo[w] < self.distTo[v] + 1:
-                        self.distTo[w] = self.distTo[v] + 1
-                        self.edgeTo[w] = v
-
-            max_dist = max(self.distTo.values())
-            max_vertex = None
-            for v in self.distTo:
-                if self.distTo[v] == max_dist:
-                    max_vertex = v
-                    break
-
-            if max_vertex is None:
-                return None, None
-
-            path = []
-            current = max_vertex
-            while current is not None:
-                path.insert(0, current)
-                current = self.edgeTo.get(current)
-
-            return max_dist, path
+        with open(filename) as arq:
+            for line in arq:
+                verts = line[:-1].split()
+                self.addEdge(verts[0], verts[1])

@@ -26,37 +26,23 @@ def check_size(Box1, Box2) -> bool:
 if __name__ == "__main__":
     box_arr = []
     g = Graph()
-    with open("casosT10/chuck_norris.txt") as arq:
+    with open("casosT10/teste10.txt") as arq:
         for line in arq:
-            # print(line)
+
             x,y,z = line.split()
             box = Box(x,y,z)
             box_arr.append(box)
-            # box.print_Box()
-    # print(len(box_arr))                       
+                       
     for i, box1 in enumerate(box_arr):
         for j, box2 in enumerate(box_arr):
-            # if i==j:
-                # print(box1.__str__())
-                # print(box2.__str__())
             if i!= j and check_size(box1,box2): # verificar se nao sao iguais
                 g.addEdge(box1.__str__(),box2.__str__())
     
     grafo_topo = Topological(g)
-    # ordem = grafo_topo.getTopological()
-
-
-    # max_dist = grafo_topo.longestPath(g)
-    # print(max_dist)
-
-    # nome_caixa = {str(i): f'Box{i}' for i in range(len(box_arr))}    
-    # for vertex in ordem:
-        # pass
-        # print(nome_caixa[vertex], end=" ")
 
     print("\n")
     with open("todot.txt", "w") as file:
         file.write((g.toDot()))
     dist, path = grafo_topo.longestPath()
-    print(len(path))
+    print(dist)
     print(path)

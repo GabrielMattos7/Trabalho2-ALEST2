@@ -27,30 +27,34 @@ class Topological:
         self.verts.insert(0, s)
 
     def longestPath(self):
-        for v in self.verts:
+        """
+        Vai e mcada vertice, pega seus adjacentes e compara se a distancia do adjacente é menor que a do vertice +1
+        se for, marca a dist do adj para vertice + 1 
+        serve para saber qual o maior caminho possivel a se percorrer 
+        """
+        for v in self.verts: #v is a node
             if self.distTo[v] == -float('inf'):
                 self.distTo[v] = 0
 
-            for w in self.g.getAdj(v):
-                if self.distTo[w] < self.distTo[v] + 1:
+            for w in self.g.getAdj(v): #w is a node 
+                if self.distTo[w] < self.distTo[v] + 1: #procura se um outro(possível) caminho de w é menor que o atual caminho(vindo de v)
                     self.distTo[w] = self.distTo[v] + 1
                     self.edgeTo[w] = v
 
         max_dist = max(self.distTo.values())
-        max_vertex = None
+        current = None
         for v in self.distTo:
             if self.distTo[v] == max_dist:
-                max_vertex = v
+                current = v #acha o vertice mais que traz consigo a maior distancia  
                 break
 
-        if max_vertex is None:
-            return None, None
 
         path = []
-        current = max_vertex
+        print(self.edgeTo)
+        print(self.distTo)
         while current is not None:
-            path.insert(0, current)
-            current = self.edgeTo.get(current)
+            path.insert(0, current) #adiciona o ultimo ao array
+            current = self.edgeTo.get(current) # pega o seu edge
 
-        return max_dist, path
+        return len(path), path
 
